@@ -10,7 +10,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "MiniGame1",
     "PackageVersion": "Simulate",
-    "PackageNote": "2026/1/9 17:52:55",
+    "PackageNote": "2026/1/10 23:16:30",
     "AssetList": [
         {
             "Address": "test_tbfirst",
@@ -59,7 +59,7 @@
         {
             "BundleName": "assets_game_minigame_res_config.bundle",
             "UnityCRC": 0,
-            "FileHash": "e37055c8de1f3301fb857a085a345bf9",
+            "FileHash": "cf923449148dfc70e24cb4b5ed2b2628",
             "FileCRC": 0,
             "FileSize": 114,
             "Encrypted": false,
@@ -69,7 +69,7 @@
         {
             "BundleName": "assets_game_minigame_res_scene.bundle",
             "UnityCRC": 0,
-            "FileHash": "289c9a3025211c87b2dfdac7f1ba7940",
+            "FileHash": "8c9b1bc7da3bfbb9e7a248541197e5b7",
             "FileCRC": 0,
             "FileSize": 10611,
             "Encrypted": false,
@@ -79,7 +79,7 @@
         {
             "BundleName": "assets_game_minigame_res_ui_prefab.bundle",
             "UnityCRC": 0,
-            "FileHash": "8d38006224faed80b80f43d853b89076",
+            "FileHash": "90ccaaf6186a234dc18cb8289429ae6f",
             "FileCRC": 0,
             "FileSize": 13467,
             "Encrypted": false,
@@ -89,7 +89,7 @@
         {
             "BundleName": "unityshaders.bundle",
             "UnityCRC": 0,
-            "FileHash": "29daa876a8742b11c9a3cda6635efce1",
+            "FileHash": "e85bdcf0a363f80a5241c46a0d3cf69f",
             "FileCRC": 0,
             "FileSize": 2624,
             "Encrypted": false,
