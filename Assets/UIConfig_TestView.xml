@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfUIState xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <UIState>
+    <stateName>State_0</stateName>
+    <objects>
+      <ObjectData>
+        <path>Image</path>
+        <isActive>true</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName />
+        <comps />
+      </ObjectData>
+      <ObjectData>
+        <path>Image (1)</path>
+        <isActive>true</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName />
+        <comps />
+      </ObjectData>
+      <ObjectData>
+        <path>Image (2)</path>
+        <isActive>true</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName />
+        <comps />
+      </ObjectData>
+      <ObjectData>
+        <path>Scroll View</path>
+        <isActive>true</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName>Background</spriteName>
+        <comps />
+      </ObjectData>
+      <ObjectData>
+        <path>Button</path>
+        <isActive>true</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName>UISprite</spriteName>
+        <comps />
+      </ObjectData>
+    </objects>
+  </UIState>
+  <UIState>
+    <stateName>State_1</stateName>
+    <objects>
+      <ObjectData>
+        <path>Image</path>
+        <isActive>false</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName />
+        <comps />
+      </ObjectData>
+      <ObjectData>
+        <path>Image (1)</path>
+        <isActive>false</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName />
+        <comps />
+      </ObjectData>
+      <ObjectData>
+        <path>Image (2)</path>
+        <isActive>false</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName />
+        <comps />
+      </ObjectData>
+      <ObjectData>
+        <path>Scroll View</path>
+        <isActive>true</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName>Background</spriteName>
+        <comps />
+      </ObjectData>
+      <ObjectData>
+        <path>Button</path>
+        <isActive>true</isActive>
+        <scale>
+          <x>1</x>
+          <y>1</y>
+          <z>1</z>
+        </scale>
+        <alpha>1</alpha>
+        <hasCG>false</hasCG>
+        <spriteName>UISprite</spriteName>
+        <comps />
+      </ObjectData>
+    </objects>
+  </UIState>
+</ArrayOfUIState>

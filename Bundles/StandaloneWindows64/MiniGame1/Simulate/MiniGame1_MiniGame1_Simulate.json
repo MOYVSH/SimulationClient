@@ -1,0 +1,102 @@
+{
+    "FileVersion": "2025.9.30",
+    "EnableAddressable": true,
+    "SupportExtensionless": true,
+    "LocationToLower": false,
+    "IncludeAssetGUID": false,
+    "ReplaceAssetPathWithAddress": false,
+    "OutputNameStyle": 0,
+    "BuildBundleType": 1,
+    "BuildPipeline": "EditorSimulateBuildPipeline",
+    "PackageName": "MiniGame1",
+    "PackageVersion": "Simulate",
+    "PackageNote": "2026/1/9 17:52:55",
+    "AssetList": [
+        {
+            "Address": "test_tbfirst",
+            "AssetPath": "Assets/Game/MiniGame_Res/Config/test_tbfirst.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "test_tbsecond",
+            "AssetPath": "Assets/Game/MiniGame_Res/Config/test_tbsecond.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "GameScene",
+            "AssetPath": "Assets/Game/MiniGame_Res/Scene/GameScene.unity",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "MyShaderVariants",
+            "AssetPath": "Assets/Game/MiniGame_Res/ShaderVariants/MyShaderVariants.shadervariants",
+            "AssetGUID": "",
+            "AssetTags": [
+                "ShaderVariants"
+            ],
+            "BundleID": 3,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "LoadingView",
+            "AssetPath": "Assets/Game/MiniGame_Res/UI/Prefab/LoadingView.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        }
+    ],
+    "BundleList": [
+        {
+            "BundleName": "assets_game_minigame_res_config.bundle",
+            "UnityCRC": 0,
+            "FileHash": "e37055c8de1f3301fb857a085a345bf9",
+            "FileCRC": 0,
+            "FileSize": 114,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_game_minigame_res_scene.bundle",
+            "UnityCRC": 0,
+            "FileHash": "289c9a3025211c87b2dfdac7f1ba7940",
+            "FileCRC": 0,
+            "FileSize": 10611,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_game_minigame_res_ui_prefab.bundle",
+            "UnityCRC": 0,
+            "FileHash": "8d38006224faed80b80f43d853b89076",
+            "FileCRC": 0,
+            "FileSize": 13467,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "unityshaders.bundle",
+            "UnityCRC": 0,
+            "FileHash": "29daa876a8742b11c9a3cda6635efce1",
+            "FileCRC": 0,
+            "FileSize": 2624,
+            "Encrypted": false,
+            "Tags": [
+                "ShaderVariants"
+            ],
+            "DependBundleIDs": []
+        }
+    ]
+}
