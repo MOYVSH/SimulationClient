@@ -13,7 +13,7 @@ public class YooassetUtility : IUtility
 {
     public readonly static string PackageName = "MiniGame1";
     public readonly static string hostServerIP = "http://127.0.0.1";//服务器地址
-    public readonly static string appVersion = "v1.1"; //版本号
+    public readonly static string appVersion = "v0.1"; //版本号
     private ResourcePackage _package = null; //资源包对象
 
     private MyYooAsset _yoosetAsset = null; //自定义的YooAsset类
@@ -32,10 +32,10 @@ public class YooassetUtility : IUtility
 
     #region Load
 
-    public async UniTask<List<TextAsset>> LoadConfigsAsync()
+    public async UniTask<List<TextAsset>> LoadConfigsAsync(string path)
     {
         // 不知道是不是设计问题 这个地方得传一个确定文件的路径 不能是父级文件夹的路径
-        AllAssetsHandle handle = _package.LoadAllAssetsAsync<TextAsset>("Assets/Game/MiniGame_Res/Config/test_tbfirst");
+        AllAssetsHandle handle = _package.LoadAllAssetsAsync<TextAsset>(path);
         await handle;
         List<TextAsset> list = new List<TextAsset>();
         foreach(var assetObj in handle.AllAssetObjects)
@@ -50,7 +50,14 @@ public class YooassetUtility : IUtility
         AssetHandle handle = _package.LoadAssetSync(path);
         return handle.AssetObject as T;
     }
-    
+
+    public async UniTask<T> LoadAssetAsync<T>(string path) where T : Object
+    {
+        AssetHandle handle = _package.LoadAssetSync(path);
+        await handle;
+        return handle.AssetObject as T;
+    }
+
     public async UniTask<T> LoadSubAssetAsync<T>(string path,string subName) where T : Object
     {
         SubAssetsHandle  handle = _package.LoadSubAssetsAsync<T>(path);

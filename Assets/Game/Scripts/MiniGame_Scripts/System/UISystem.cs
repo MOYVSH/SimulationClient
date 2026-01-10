@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using MOYV;
 using QFramework;
 using UnityEngine;
@@ -29,4 +30,8 @@ public class UISystem : AbstractUISystem
         return this.GetUtility<YooassetUtility>().LoadAssetSync<GameObject>(path);
     }
 
+    protected override async UniTask<Object> LoadAssetAsync(string path)
+    {
+        return await this.GetUtility<YooassetUtility>().LoadAssetAsync<GameObject>(path);
+    }
 }

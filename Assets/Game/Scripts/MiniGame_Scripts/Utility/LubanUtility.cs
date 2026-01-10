@@ -18,7 +18,7 @@ public class LubanUtility : IUtility
     {
         try
         {
-            var handle = GameArchitecture.Interface.GetUtility<YooassetUtility>().LoadConfigsAsync();
+            var handle = GameArchitecture.Interface.GetUtility<YooassetUtility>().LoadConfigsAsync("Assets/Game/MiniGame_Res/Config/test_tbfirst");
 
             var results = await handle; // 等待异步加载完成
             Dictionary<string, byte[]> dict = new Dictionary<string, byte[]>();

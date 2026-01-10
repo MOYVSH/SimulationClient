@@ -90,3 +90,24 @@ MonoBehaviour:
         FilterRuleName: CollectShaderVariants
         AssetTags: ShaderVariants
         UserData: 
+    - GroupName: Actor
+      GroupDesc: 
+      AssetTags: 
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Game/MiniGame_Res/Entities/Prefab/Actor
+        CollectorGUID: f121d4560f7c44243acdc1be78cdb274
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: Actor
+        UserData: 
+      - CollectPath: Assets/Game/MiniGame_Res/Entities/Prefab/Trigger
+        CollectorGUID: 4948b90891d2c344687404f7c527ad46
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: Trigger
+        UserData: 

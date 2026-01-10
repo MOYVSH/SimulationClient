@@ -12,7 +12,7 @@ public class MyYooAsset
     string appVersion = "v1.0"; //版本号
 
     public EPlayMode PlayMode = EPlayMode.HostPlayMode;//资源系统运行模式
-    public string packageName = "MiniGame1"; //默认包名
+    public string packageName; //默认包名
     private ResourcePackage _package = null; //资源包对象
 
     public int downloadingMaxNum = 10;//最大下载数量
@@ -24,7 +24,8 @@ public class MyYooAsset
     {
         // 设置资源系统运行模式
         PlayMode = playMode;
-
+        
+        packageName = YooassetUtility.PackageName;
         hostServerIP = YooassetUtility.hostServerIP;
         appVersion = YooassetUtility.appVersion;
         

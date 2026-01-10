@@ -5,7 +5,8 @@
         "Unity.TextMeshPro",
         "QFramework",
         "MOYVBase",
-        "MOYVDoTween"
+        "MOYVDoTween",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -10,7 +10,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "MiniGame1",
     "PackageVersion": "Simulate",
-    "PackageNote": "2026/1/10 23:16:30",
+    "PackageNote": "2026/1/11 1:23:39",
     "AssetList": [
         {
             "Address": "test_tbfirst",
@@ -29,11 +29,41 @@
             "DependBundleIDs": []
         },
         {
+            "Address": "BaseActor",
+            "AssetPath": "Assets/Game/MiniGame_Res/Entities/Prefab/Actor/BaseActor.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "Actor"
+            ],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "Cube",
+            "AssetPath": "Assets/Game/MiniGame_Res/Entities/Prefab/Actor/Cube.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "Actor"
+            ],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "BaseCollider",
+            "AssetPath": "Assets/Game/MiniGame_Res/Entities/Prefab/Trigger/BaseCollider.prefab",
+            "AssetGUID": "",
+            "AssetTags": [
+                "Trigger"
+            ],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
             "Address": "GameScene",
             "AssetPath": "Assets/Game/MiniGame_Res/Scene/GameScene.unity",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 1,
+            "BundleID": 3,
             "DependBundleIDs": []
         },
         {
@@ -43,7 +73,7 @@
             "AssetTags": [
                 "ShaderVariants"
             ],
-            "BundleID": 3,
+            "BundleID": 5,
             "DependBundleIDs": []
         },
         {
@@ -51,7 +81,7 @@
             "AssetPath": "Assets/Game/MiniGame_Res/UI/Prefab/LoadingView.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 2,
+            "BundleID": 4,
             "DependBundleIDs": []
         }
     ],
@@ -67,11 +97,35 @@
             "DependBundleIDs": []
         },
         {
+            "BundleName": "assets_game_minigame_res_entities_prefab_actor.bundle",
+            "UnityCRC": 0,
+            "FileHash": "b22109c2665d2553f48204b7878c89e1",
+            "FileCRC": 0,
+            "FileSize": 3760,
+            "Encrypted": false,
+            "Tags": [
+                "Actor"
+            ],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_game_minigame_res_entities_prefab_trigger.bundle",
+            "UnityCRC": 0,
+            "FileHash": "61d93377cbd68bf92235d46eeeca8680",
+            "FileCRC": 0,
+            "FileSize": 1330,
+            "Encrypted": false,
+            "Tags": [
+                "Trigger"
+            ],
+            "DependBundleIDs": []
+        },
+        {
             "BundleName": "assets_game_minigame_res_scene.bundle",
             "UnityCRC": 0,
             "FileHash": "8c9b1bc7da3bfbb9e7a248541197e5b7",
             "FileCRC": 0,
-            "FileSize": 10611,
+            "FileSize": 275578,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []

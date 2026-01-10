@@ -4,6 +4,7 @@ using System.Linq;
 using QFramework;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Cysharp.Threading.Tasks;
 
 namespace MOYV
 {
@@ -18,6 +19,9 @@ namespace MOYV
         // 显示的Panel
         private readonly List<AbstractBasePanel> _openedPanelsList = new();
 
+        private readonly Queue<Type> _loadingPanelQueue = new();
+        private bool _isLoadingPanel = false;
+        
         // 排序顺序的增量
         private int SortingOrderAddition = 100;
         
@@ -44,6 +48,7 @@ namespace MOYV
         /// <returns></returns>
         protected abstract Object LoadAsset(string path);
 
+        protected abstract UniTask<Object> LoadAssetAsync(string path);
         #region 打开UI
         /// <summary>
         /// 显示面板
@@ -51,15 +56,14 @@ namespace MOYV
         /// <typeparam name="T"></typeparam>
         public T OpenPanel<T>(Action onOpenCallback = null) where T : AbstractBasePanel
         {
-            return OpenPanel<T>(null, null);
+            return OpenPanel<T>(null, onOpenCallback);
         }
-
+        
         /// <summary>
         /// 显示面板
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public T OpenPanel<T>(BasePanelData data, Action onOpenCallback = null) 
-            where T : AbstractBasePanel
+        public T OpenPanel<T>(BasePanelData data, Action onOpenCallback = null) where T : AbstractBasePanel
         {
             var key = typeof(T);
             var panelComponent = _openedPanelsList.FirstOrDefault(panel => panel.GetType() == key);
@@ -75,7 +79,7 @@ namespace MOYV
             {
                 panelComponent.InitWithPanelData(data);
                 panelComponent.SetSortingOrder(GetNewPanelSortingOrder(panelComponent));
-                panelComponent.Open();
+                panelComponent.Open(onOpenCallback);
                 PauseOtherPanels(panelComponent);
                 _cachedPanelsDic.Remove(key);
                 return panelComponent as T;
@@ -103,11 +107,88 @@ namespace MOYV
             }
             panelComponent.InitWithPanelData(data);
             panelComponent.SetSortingOrder(GetNewPanelSortingOrder(panelComponent));
-            panelComponent.Open();
+            panelComponent.Open(onOpenCallback);
             return (T) panelComponent;
         }
         
 
+        public async UniTask<T> OpenPanelAsync<T>(BasePanelData data = null, Action onOpenCallback = null) where T : AbstractBasePanel
+        {
+            var panelType = typeof(T);
+            
+            var key = typeof(T);
+            var panelComponent = _openedPanelsList.FirstOrDefault(panel => panel.GetType() == key);
+            if (panelComponent != null)
+            {
+                panelComponent.InitWithPanelData(data);
+                panelComponent.SetSortingOrder(GetNewPanelSortingOrder(panelComponent));
+                PauseOtherPanels(panelComponent);
+                return panelComponent as T;
+            }
+
+            if (_cachedPanelsDic.TryGetValue(key, out panelComponent))
+            {
+                panelComponent.InitWithPanelData(data);
+                panelComponent.SetSortingOrder(GetNewPanelSortingOrder(panelComponent));
+                panelComponent.Open(onOpenCallback);
+                PauseOtherPanels(panelComponent);
+                _cachedPanelsDic.Remove(key);
+                return panelComponent as T;
+            }
+            
+            var go = await EnqueuePanelAsync(panelType, data, onOpenCallback);
+            if (go == null) return null;
+            var panel = go.GetComponent<T>();
+            return panel;
+        }
+        
+        private async UniTask<GameObject> EnqueuePanelAsync(Type panelType, BasePanelData data, Action onOpenCallback)
+        {
+            if (_isLoadingPanel)
+            {
+                _loadingPanelQueue.Enqueue(panelType);
+                return null;
+            }
+            _isLoadingPanel = true;
+
+            int sortingOrder = GetNewPanelSortingOrder(null);
+
+            if (!_panelLoadPathDic.TryGetValue(panelType, out var path))
+            {
+                LogError($"没有注册 {panelType.Name} 的资源路径");
+                _isLoadingPanel = false;
+                return null;
+            }
+
+            var prefab = await LoadAssetAsync(path);
+            var go = Object.Instantiate(prefab, UIRoot) as GameObject;
+            if (go == null)
+            {
+                LogError($"未能实例化 {panelType.Name}");
+                _isLoadingPanel = false;
+                return null;
+            }
+            go.name = panelType.Name;
+            var panel = go.GetComponent(panelType) as AbstractBasePanel;
+            if (panel == null)
+            {
+                LogError($"{panelType.Name} 没有继承 BasePanel");
+                _isLoadingPanel = false;
+                return null;
+            }
+            panel.SetSortingOrder(sortingOrder);
+            panel.InitWithPanelData(data);
+            panel.Open(onOpenCallback);
+
+            _isLoadingPanel = false;
+            if (_loadingPanelQueue.Count > 0)
+            {
+                var nextPanelType = _loadingPanelQueue.Dequeue();
+                await EnqueuePanelAsync(nextPanelType, null, null);
+            }
+            return go;
+        }
+        
         #endregion
 
         #region 关闭UI

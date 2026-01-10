@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using MonsterLove.StateMachine;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using MOYV.RunTime.Game.Logic;
 using QFramework;
+using Runtime.System;
 using UniFramework.Pooling;
 using UnityEngine.SceneManagement;
 
@@ -65,10 +67,18 @@ public class SceneFlowController : MonoSingleton<SceneFlowController>, IControll
     void Loading_Enter()
     {
         Log("开始加载场景...");
-        uiSystem?.OpenPanel<LoadingView>();
-        LoadSceneCoroutine().Forget();
+        //uiSystem?.OpenPanel<LoadingView>();
+        if (uiSystem == null) 
+            return;
+        
+        UniTask.Void(async () =>
+        {
+            await uiSystem.OpenPanelAsync<LoadingView>();
+            LoadSceneCoroutine();
+        });
     }
     
+
     void Loading_Update()
     {
         fsm.Driver.OnLoadProgress.Invoke(loadingProgress);
@@ -111,6 +121,8 @@ public class SceneFlowController : MonoSingleton<SceneFlowController>, IControll
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f), false);
         // 使用UniTask加载场景
         await LoadSceneAsync();
+        
+        DoAfterLevelLoad();
     }
     
     private async UniTask LoadSceneAsync()
@@ -223,9 +235,41 @@ public class SceneFlowController : MonoSingleton<SceneFlowController>, IControll
         
         // 打开 UI 等操作
         
+        // 测试一下Actor
+        var actorSystem = this.GetSystem<ActorSystem>();
+        var testData = new TriggerActorData();
+        testData.uid = 19971216;
+        testData.path = "BaseActor";
+        testData.RefreshMapInfo(20251124, new Vector3(0, 0, 0), 45f);
+        var actor = actorSystem.CreateActor(testData, (ba) =>
+        {
+            GameArchitecture.Interface.SendEvent<ZTestEvent>();
+            
+            var param = new AFuncCMD_Test_Param();
+            param.ID = 123;
+            ba.ExecuteCMD<AFuncCMD_Test_Param>(AFuncType.test, param);
+            ba.ExecuteCMD(AFuncType.testE);
+        });
+        
+
+        /*var testData2 = new TestAcrtorData();
+        testData2.uid = 20240606;
+        testData2.path = "BaseActor";
+        testData2.RefreshMapInfo(2026111, new Vector3(2, 0, 0), 0f);
+        var actor2 = actorSystem.CreateActor(testData2, (ba) =>
+        {
+            GameArchitecture.Interface.SendEvent<ZTestEvent>();
+            GameArchitecture.Interface.SendEvent<ZTestEvent1>();
+            
+            var param = new AFuncCMD_Test_Param();
+            param.ID = 123;
+            actor.ExecuteCMD<AFuncCMD_Test_Param>(AFuncType.test, param);
+        });*/
+
+        //actorSystem.RemoveActor(actor);
     }
 
-    private async UniTask LoadConfig()
+    private async UniTask LoadConfig()  
     {
         Log($"数据表加载开始，当前时间: {Time.time}");
 
@@ -243,7 +287,6 @@ public class SceneFlowController : MonoSingleton<SceneFlowController>, IControll
         
         Log($"数据表加载完成，当前时间: {Time.time}");
     }
-
-
+    
     #endregion
 }

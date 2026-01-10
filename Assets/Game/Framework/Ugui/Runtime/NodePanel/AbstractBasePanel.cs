@@ -93,6 +93,7 @@ namespace MOYV
             this.SendEvent(new PanelCloseEvent(this));
             _onCloseCallBack?.Invoke();
             _onCloseCallBack = null;
+            _onCloseCallBack = null;
             if (!hideOnClose)
             {
                 Destroy(gameObject);
