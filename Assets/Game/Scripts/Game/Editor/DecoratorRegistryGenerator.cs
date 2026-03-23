@@ -11,7 +11,6 @@ using UnityEditor.Callbacks;
 using MOYV.RunTime.Game.Logic;
 using MOYV.RunTime.Game.Tool;
 
-
 namespace MOYV.Game.Editor
 {
     /// <summary>
@@ -26,7 +25,7 @@ namespace MOYV.Game.Editor
         [MenuItem("Tools/功能装饰器/手动生成静态注册表")]
         public static void ManuallyGenRegistry() => GenerateStaticRegistry();
         
-                [DidReloadScripts]
+        [DidReloadScripts]
         public static void GenerateStaticRegistry()
         {
             try

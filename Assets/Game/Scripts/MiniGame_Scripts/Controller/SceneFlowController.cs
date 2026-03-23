@@ -6,6 +6,7 @@ using MonsterLove.StateMachine;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using MOYV.RunTime.Game.Logic;
+using MOYV.RunTime.Game.Tool;
 using QFramework;
 using Runtime.System;
 using UniFramework.Pooling;
@@ -244,6 +245,12 @@ public class SceneFlowController : MonoSingleton<SceneFlowController>, IControll
         var actor = actorSystem.CreateActor(testData, (ba) =>
         {
             GameArchitecture.Interface.SendEvent<ZTestEvent>();
+            ba.AddFunc(CPool.Pop<AFunc_Trigger>(),ba);
+
+            AFuncCMD_Trigger_Exeute cmd = new AFuncCMD_Trigger_Exeute();
+            cmd.Trigger = null;
+            cmd.Pass = false;
+            ba.ExecuteCMD<AFuncCMD_Trigger_Exeute>(AFuncType.Trigger_Exeute, cmd);
             
             var param = new AFuncCMD_Test_Param();
             param.ID = 123;
@@ -252,7 +259,8 @@ public class SceneFlowController : MonoSingleton<SceneFlowController>, IControll
         });
         
 
-        /*var testData2 = new TestAcrtorData();
+
+        var testData2 = new TestAcrtorData();
         testData2.uid = 20240606;
         testData2.path = "BaseActor";
         testData2.RefreshMapInfo(2026111, new Vector3(2, 0, 0), 0f);
@@ -262,9 +270,9 @@ public class SceneFlowController : MonoSingleton<SceneFlowController>, IControll
             GameArchitecture.Interface.SendEvent<ZTestEvent1>();
             
             var param = new AFuncCMD_Test_Param();
-            param.ID = 123;
+            param.ID = 456;
             actor.ExecuteCMD<AFuncCMD_Test_Param>(AFuncType.test, param);
-        });*/
+        });
 
         //actorSystem.RemoveActor(actor);
     }

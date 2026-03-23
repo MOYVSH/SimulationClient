@@ -10,7 +10,7 @@ public abstract class BaseActorData : Poolable
     ///<summary>外壳 资源路径</summary>
     public string path { get; set; }
     ///<summary>缩放</summary>
-    public Vector3 scale;
+    public Vector3 scale =  Vector3.one;
     ///<summary>地图位置信息</summary>
     public MapPosInfo mapInfo;
 

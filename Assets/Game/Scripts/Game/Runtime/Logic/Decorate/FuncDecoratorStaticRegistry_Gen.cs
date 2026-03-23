@@ -22,7 +22,8 @@ namespace MOYV.RunTime.Game.Logic
         private static readonly Dictionary<AFuncType, (Type type, int offset, int order)> Func2Registries = new()
         {
             [AFuncType.test] = (typeof(AFunc_Test), 10, 1),
-            [AFuncType.testE] = (typeof(AFunc_TestE), 100, 1)
+            [AFuncType.testE] = (typeof(AFunc_TestE), 100, 1),
+            [AFuncType.Trigger] = (typeof(AFunc_Trigger), 10, 2)
         };
 
         /// <summary>
@@ -32,7 +33,8 @@ namespace MOYV.RunTime.Game.Logic
         private static readonly Dictionary<Type, (AFuncType funcType, int offset, int order)> Type2Registries = new()
         {
             [typeof(AFunc_Test)] = (AFuncType.test, 10, 1),
-            [typeof(AFunc_TestE)] = (AFuncType.testE, 100, 1)
+            [typeof(AFunc_TestE)] = (AFuncType.testE, 100, 1),
+            [typeof(AFunc_Trigger)] = (AFuncType.Trigger, 10, 2)
         };
 
     }

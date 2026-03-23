@@ -30,7 +30,7 @@ namespace Runtime.System
                 return _routeService;
             }
         }
-        protected EventRouter1 eventRoute;
+        protected EventRouterQF eventRoute;
 
         
         
@@ -41,7 +41,7 @@ namespace Runtime.System
 
         public void AfterSceneInit()
         {
-            eventRoute = CPool.Pop<EventRouter1>();
+            eventRoute = CPool.Pop<EventRouterQF>();
             eventRoute.Register<UpdateEvent>(UpdateEvent.eventID, OnUpdate);
             eventRoute.Register<FixedUpdateEvent>(FixedUpdateEvent.eventID, OnFixedUpdate);
         }
@@ -63,7 +63,7 @@ namespace Runtime.System
         
         protected void RegisterRoutes()
         {           
-            eventRoute= routeService.Add<EventRouter1>();     
+            eventRoute= routeService.Add<EventRouterQF>();     
         }
 
         public void OnUpdate(UpdateEvent e)

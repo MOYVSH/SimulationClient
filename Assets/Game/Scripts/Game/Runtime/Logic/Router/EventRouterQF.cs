@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MOYV.RunTime.Game.Core
 {
-    public class EventRouter1 : BaseRouter, ICanRegisterEvent
+    public class EventRouterQF : BaseRouter, ICanRegisterEvent
     {
         // 在这个类中我想统一记录注册的事件，以便调试和排查问题
         private Dictionary<int, Delegate> dic = new Dictionary<int, Delegate>();

@@ -10,7 +10,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "MiniGame1",
     "PackageVersion": "Simulate",
-    "PackageNote": "2026/1/11 1:23:39",
+    "PackageNote": "2026/3/24 0:42:20",
     "AssetList": [
         {
             "Address": "test_tbfirst",
@@ -101,7 +101,7 @@
             "UnityCRC": 0,
             "FileHash": "b22109c2665d2553f48204b7878c89e1",
             "FileCRC": 0,
-            "FileSize": 3760,
+            "FileSize": 4108,
             "Encrypted": false,
             "Tags": [
                 "Actor"
@@ -113,7 +113,7 @@
             "UnityCRC": 0,
             "FileHash": "61d93377cbd68bf92235d46eeeca8680",
             "FileCRC": 0,
-            "FileSize": 1330,
+            "FileSize": 1481,
             "Encrypted": false,
             "Tags": [
                 "Trigger"

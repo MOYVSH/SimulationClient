@@ -1,3 +1,4 @@
+using Runtime.Modules;
 using UnityEngine;
 
 public class MiniGame : ArchitectureProxy<MiniGame>
@@ -12,7 +13,7 @@ public class MiniGame : ArchitectureProxy<MiniGame>
 
     private void RegisterModel()
     {
-        
+        RegisterModel(new ActorModel());
     }
 
     private void RegisterSystem()

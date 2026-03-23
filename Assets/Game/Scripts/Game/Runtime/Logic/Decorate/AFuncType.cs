@@ -18,5 +18,9 @@
         NONE = 0,
         test = 1,
         testE = 2,
+        
+        Trigger = 80001,
+        Trigger_Exeute = 80002,
+        
     }
 }

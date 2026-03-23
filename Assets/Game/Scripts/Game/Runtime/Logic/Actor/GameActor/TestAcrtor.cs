@@ -5,7 +5,7 @@ namespace MOYV.RunTime.Game.Logic
 {
     public class TestAcrtor : BaseActor
     {
-        EventRouter1 eventRouter = new EventRouter1();
+        EventRouterQF eventRouter = new EventRouterQF();
 
 
         protected override void OnAddOtherFuncs()
