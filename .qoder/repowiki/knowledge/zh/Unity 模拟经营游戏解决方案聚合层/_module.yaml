@@ -1,6 +1,6 @@
 schema_version: 1
 module_path: ""
-title: Unity 模拟经营游戏解决方案聚合根
+title: Unity 模拟经营游戏解决方案聚合层
 scope:
     - .gitignore
     - .gitattributes

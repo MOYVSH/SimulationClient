@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "visualstudiotoolsforunity.vstuc",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "jchannon.csharpextensions",
+        "k--kato.docomment",
+        "Unity.unity-debug"
+    ],
+    "unwantedRecommendations": []
+}

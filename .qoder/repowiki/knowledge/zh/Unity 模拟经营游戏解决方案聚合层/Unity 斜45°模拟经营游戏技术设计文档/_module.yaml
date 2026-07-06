@@ -1,6 +1,6 @@
 schema_version: 1
 module_path: simulationdoc
-title: Unity 模拟经营项目设计文档与开发计划
+title: Unity 斜45°模拟经营游戏技术设计文档
 scope:
     - .simulationdoc/
 source_files: []

@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Unity Project",
+            "type": "shell",
+            "command": "echo",
+            "args": ["Build triggered from Qoder"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$msCompile"]
+        },
+        {
+            "label": "Run Unity Tests",
+            "type": "shell",
+            "command": "echo",
+            "args": ["Tests triggered from Qoder"],
+            "group": "test",
+            "problemMatcher": []
+        }
+    ]
+}

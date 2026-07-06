@@ -98,11 +98,13 @@
       "dependencies": {}
     },
     "com.unity.ide.qoder": {
-      "version": "https://github.com/wweibp/com.unity.ide.qoder.git",
+      "version": "https://github.com/lalanbv/com.unity.ide.qoder.git",
       "depth": 0,
       "source": "git",
-      "dependencies": {},
-      "hash": "061b338a2b494a8134753a2803e86649eef9a3d9"
+      "dependencies": {
+        "com.unity.test-framework": "1.1.33"
+      },
+      "hash": "8a6991c373c99666063241bc0cc7691717a94fa5"
     },
     "com.unity.ide.rider": {
       "version": "3.0.39",

@@ -426,8 +426,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Profiler\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 2048
-    y: 23.2
+    x: 0
+    y: 26
     width: 2048
     height: 1054.8
   m_SerializedDataModeController:
@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 43.2
+    y: 0
     width: 2048
     height: 36
   m_SerializedDataModeController:
@@ -1870,7 +1870,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79.200005
+    y: 24
     width: 1170.2
     height: 572.4
   m_SerializedDataModeController:
@@ -2384,8 +2384,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1171.2001
-    y: 79.200005
+    x: 1172.2
+    y: 24
     width: 390.80005
     height: 572.4
   m_SerializedDataModeController:
@@ -2404,8 +2404,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs:
-      - m_Data: 62072
+      m_SelectedIDs: []
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
@@ -2466,7 +2465,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 677.60004
+    y: 24
     width: 1048.6
     height: 380.40002
   m_SerializedDataModeController:
@@ -2503,8 +2502,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1049.6
-    y: 677.60004
+    x: 1050.6
+    y: 24
     width: 512.4
     height: 380.40002
   m_SerializedDataModeController:
@@ -2555,13 +2554,9 @@ MonoBehaviour:
       m_Data: 61344
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 54116
-    - m_Data: 54118
-    - m_Data: 54120
-    - m_Data: 54122
-    - m_Data: 54128
-    - m_Data: 54130
-    - m_Data: 54132
+    - m_Data: 54134
+    - m_Data: 54136
+    - m_Data: 54138
     - m_Data: 54140
     - m_Data: 54142
     - m_Data: 54144
@@ -2569,8 +2564,11 @@ MonoBehaviour:
     - m_Data: 54148
     - m_Data: 54150
     - m_Data: 54152
-    - m_Data: 54248
-    - m_Data: 61334
+    - m_Data: 54154
+    - m_Data: 54156
+    - m_Data: 54158
+    - m_Data: 54160
+    - m_Data: 54162
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2603,13 +2601,9 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 54116
-    - m_Data: 54118
-    - m_Data: 54120
-    - m_Data: 54122
-    - m_Data: 54128
-    - m_Data: 54130
-    - m_Data: 54132
+    - m_Data: 54134
+    - m_Data: 54136
+    - m_Data: 54138
     - m_Data: 54140
     - m_Data: 54142
     - m_Data: 54144
@@ -2617,7 +2611,11 @@ MonoBehaviour:
     - m_Data: 54148
     - m_Data: 54150
     - m_Data: 54152
-    - m_Data: 54248
+    - m_Data: 54154
+    - m_Data: 54156
+    - m_Data: 54158
+    - m_Data: 54160
+    - m_Data: 54162
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2652,8 +2650,8 @@ MonoBehaviour:
     - m_Data: 54608
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: IsometricCameraController
-      m_OriginalName: IsometricCameraController
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -2661,10 +2659,10 @@ MonoBehaviour:
         width: 0
         height: 0
       m_UserData:
-        m_Data: 62072
+        m_Data: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 15}
@@ -2700,8 +2698,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1564
-    y: 79.200005
+    x: 1565
+    y: 24
     width: 483
     height: 978.80005
   m_SerializedDataModeController:
