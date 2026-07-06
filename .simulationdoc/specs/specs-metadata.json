@@ -1,0 +1,186 @@
+{
+  "project": "Unity 模拟经营项目",
+  "version": "1.0",
+  "created": "2026-07-06",
+  "last_modified": "2026-07-06",
+  "source_document": "unity_simulation_design_v1.md",
+  "performance_budget": {
+    "tree_view_max": 500,
+    "worker_max": 100,
+    "cpu_ms": 10,
+    "gpu_ms": 8
+  },
+  "tech_stack": {
+    "unity_version": "6000.3.2f1",
+    "render_pipeline": "URP (Universal Render Pipeline 17.3.0)",
+    "input_system": "New Input System",
+    "ui": "uGUI (MOYVUnityUGUI)",
+    "architecture": "QFramework MVC",
+    "avoid": ["DOTS", "ECS"]
+  },
+  "existing_frameworks": [
+    "QFramework (MVC)",
+    "MonsterLove FSM",
+    "MPool / UniFramework.Pooling",
+    "MOYVBase",
+    "MOYVCollections",
+    "MOYVUnityUGUI",
+    "MOYVDoTween",
+    "MDebug",
+    "MEvent",
+    "A* Pathfinding Project",
+    "UniTask"
+  ],
+  "code_root": "Assets/Game/Scripts/Simulation/",
+  "documents": [
+    {
+      "file": "00-overview.md",
+      "title": "Unity 模拟经营项目 — 总览与协作约定",
+      "phase": "overview",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": [],
+      "keywords": ["Unity", "模拟经营", "架构", "接口契约", "性能目标", "WorldGrid"],
+      "summary": "项目总览、核心架构、全局约定、跨 Phase 接口契约、风险与缓解、性能预算。",
+      "key_interfaces": ["WorldGrid", "WorldData", "ChunkManager", "AStarPathfinder", "JobManager"],
+      "responsibility": "项目经理 / 主程"
+    },
+    {
+      "file": "01-phase-0-setup.md",
+      "title": "Phase 0：项目基础",
+      "phase": "0",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": [],
+      "keywords": ["Unity", "项目初始化", "相机", "输入系统", "New Input System", "等轴视角"],
+      "summary": "模拟经营目录初始化、斜 45° 相机和 New Input System。",
+      "key_outputs": ["IsometricCameraController.cs", "GameInput.cs"],
+      "responsibility": "客户端基础"
+    },
+    {
+      "file": "02-phase-1-world-grid.md",
+      "title": "Phase 1：World + Grid",
+      "phase": "1",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": ["phase-0"],
+      "keywords": ["WorldGrid", "WorldData", "ChunkManager", "坐标系", "空间数据库", "Terrain"],
+      "summary": "坐标系、WorldGrid 空间数据库、WorldData 权威数据层、ChunkManager 分区、Terrain 初始同步。",
+      "key_outputs": ["WorldGrid.cs", "WorldData.cs", "ChunkManager.cs", "TerrainDataReader.cs"],
+      "responsibility": "世界系统 / 架构"
+    },
+    {
+      "file": "03-phase-2-tree-view.md",
+      "title": "Phase 2：Tree + View",
+      "phase": "2",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": ["phase-0", "phase-1"],
+      "keywords": ["Tree", "TreeView", "对象池", "Terrain同步", "生命周期", "LOD"],
+      "summary": "树木数据模型、生命周期、TreeView 表现、通用对象池、Chunk 驱动激活、Terrain 运行时同步。",
+      "key_outputs": ["TreeData.cs", "TreeLifecycleSystem.cs", "TreeViewSystem.cs", "ObjectPool.cs"]
+      "responsibility": "资源与表现"
+    },
+    {
+      "file": "04-phase-3-worker-pathfinding.md",
+      "title": "Phase 3：Worker + A*",
+      "phase": "3",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": ["phase-0", "phase-1"],
+      "keywords": ["Worker", "A*", "寻路", "状态机", "移动系统", "Pathfinding"],
+      "summary": "Worker 数据与表现、A* 寻路适配层（基于 A* Pathfinding Project）、局部 Graph Update、Worker 移动系统、MonsterLove FSM 状态机与 Brain。",
+      "key_outputs": ["WorkerData.cs", "AStarPathfinder.cs", "WorkerMovementSystem.cs", "WorkerStateSystem.cs"]
+      "responsibility": "AI / 寻路"
+    },
+    {
+      "file": "05-phase-4-building-road.md",
+      "title": "Phase 4：Building + Road",
+      "phase": "4",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": ["phase-0", "phase-1", "phase-3"],
+      "keywords": ["Building", "Road", "放置", "生命周期", "碰撞检测", "速度修正"],
+      "summary": "建筑与道路数据模型、放置系统、视觉表现、生命周期、道路速度修正。",
+      "key_outputs": ["BuildingPlacementSystem.cs", "BuildingViewManager.cs", "RoadPlacementSystem.cs", "RoadSpeedUtility.cs"]
+      "responsibility": "建造系统"
+    },
+    {
+      "file": "06-phase-5-simulation.md",
+      "title": "Phase 5：Simulation",
+      "phase": "5",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": ["phase-1", "phase-2", "phase-3", "phase-4"],
+      "keywords": ["Job", "任务系统", "存档", "UI", "Tick", "Simulation"],
+      "summary": "Job 抽象与调度、四种任务（CutTree/Build/Farm/Haul）、模拟 Tick、存档系统、基础 UI。",
+      "key_outputs": ["JobManager.cs", "CutTreeJob.cs", "BuildJob.cs", "SimulationTickManager.cs", "SaveLoadManager.cs"],
+      "responsibility": "模拟核心 / UI"
+    },
+    {
+      "file": "07-phase-6-optimization.md",
+      "title": "Phase 6：Optimization",
+      "phase": "6",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": ["phase-0", "phase-1", "phase-2", "phase-3", "phase-4", "phase-5"],
+      "keywords": ["优化", "性能", "LOD", "GC", "GPU", "Profiler", "Draw Call"],
+      "summary": "性能监控、TreeView LOD、寻路优化、任务调度优化、GC 优化、GPU 优化、最终性能验证。",
+      "key_outputs": ["PerformanceMonitor.cs", "TreeLodManager.cs", "AStarOptimizer.cs", "CollectionPool.cs"],
+      "responsibility": "性能优化"
+    },
+    {
+      "file": "README.md",
+      "title": "Unity 模拟经营项目 — 开发计划文档集",
+      "phase": "meta",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": [],
+      "keywords": ["README", "协作", "开发顺序", "里程碑", "分工"],
+      "summary": "文档集使用说明、开发顺序、最小可玩里程碑、修改记录。",
+      "responsibility": "项目经理 / 主程"
+    },
+    {
+      "file": "KNOWLEDGE_BASE_INDEX.md",
+      "title": "Unity 模拟经营项目 — 知识库索引",
+      "phase": "meta",
+      "owner": "海豹",
+      "status": "planned",
+      "dependencies": [],
+      "keywords": ["索引", "知识库", "RAG", "MCP", "协作"],
+      "summary": "按主题和接口组织的快速索引，便于 MCP 和 RAG 系统检索。",
+      "responsibility": "项目经理 / 主程"
+    }
+  ],
+  "milestones": [
+    {
+      "name": "最小可玩原型",
+      "tasks": [
+        "0.1", "0.2",
+        "1.1", "1.2", "1.3", "1.4", "1.5",
+        "2.1", "2.2", "2.3", "2.4", "2.5", "2.6",
+        "3.1", "3.2", "3.3", "3.4", "3.5", "3.6",
+        "5.1", "5.2", "5.3", "5.9"
+      ],
+      "description": "可相机漫游、生成工人、标记砍树、工人寻路并砍伐树木"
+    }
+  ],
+  "critical_decisions": [
+    "坐标约定：GridPos/ChunkPos/WorldPos 定义与转换",
+    "Chunk 尺寸：默认 32×32，激活窗口 3×3",
+    "Entity ID：统一 int，0 表示空",
+    "系统通信：优先 C# 事件，避免热路径闭包",
+    "序列化：JSON + 版本号",
+    "Terrain 所有权：启动时权威，运行时 WorldData 权威",
+    "Tick 频率：固定频率，支持 Pause/1×/2×/4×"
+  ],
+  "risks": [
+    "10000+ Terrain TreeInstance 运行时编辑开销",
+    "100 工人同时 A* 导致 CPU 峰值",
+    "Chunk 边界对象池抖动",
+    "热点路径 GC 分配",
+    "500+ View 导致 GPU 超标",
+    "多格建筑碰撞检测错误",
+    "存档版本不兼容"
+  ]
+}

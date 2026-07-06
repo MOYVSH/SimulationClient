@@ -1,0 +1,12 @@
+schema_version: 1
+module_path: ""
+title: Unity 模拟客户端与 Luban 数据管线根工程
+scope:
+    - .gitignore
+    - .gitattributes
+    - .vsconfig
+    - MiniGame1-master.slnx
+    - SimulationClient.slnx
+source_files: []
+depends_on: []
+related_to: []

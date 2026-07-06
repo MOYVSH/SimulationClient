@@ -1,0 +1,8 @@
+schema_version: 1
+module_path: luban_codegen
+title: Luban 配置与代码生成模板集
+scope:
+    - LubanConfig/
+source_files: []
+depends_on: []
+related_to: []

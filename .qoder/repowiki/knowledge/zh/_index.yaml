@@ -1,0 +1,30 @@
+# 知识卡导出索引文件
+schema_version: 1
+locale: zh-CN
+branch: master
+nodes_managed: true
+exported_at: "2026-07-06T14:58:33Z"
+modules:
+    "":
+        dir_name: Unity 模拟客户端与 Luban 数据管线根工程
+        title: Unity 模拟客户端与 Luban 数据管线根工程
+        scope:
+            - .gitignore
+            - .gitattributes
+            - .vsconfig
+            - MiniGame1-master.slnx
+            - SimulationClient.slnx
+        source_files: []
+        children:
+            - luban_codegen
+        depends_on: []
+        related_to: []
+    luban_codegen:
+        dir_name: Luban 配置与代码生成模板集
+        title: Luban 配置与代码生成模板集
+        scope:
+            - LubanConfig/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []
