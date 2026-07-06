@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "SimulationClient.slnx"
+    "dotnet.defaultSolution": "SimulationClient.slnx",
+    "dotnet.preferCSharpExtension": true
 }

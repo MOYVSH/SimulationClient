@@ -25,6 +25,7 @@ namespace MOYV.RunTime.Game.Logic
 
         void ExeTrigger(AFuncCMD_Trigger_Exeute cmd)
         {
+            if (cmd.Trigger == null) return;
             var trigger = cmd.Trigger;
             //MDebug.Log($"AFunc_Trigger.ExecuteCMD {(trigger.data as TriggerActorData).triggerType}");
             MDebug.Log($"AFunc_Trigger.ExecuteCMD");

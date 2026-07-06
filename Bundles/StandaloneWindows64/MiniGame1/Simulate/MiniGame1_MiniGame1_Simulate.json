@@ -10,7 +10,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "MiniGame1",
     "PackageVersion": "Simulate",
-    "PackageNote": "2026/7/6 21:15:53",
+    "PackageNote": "2026/7/6 22:24:23",
     "AssetList": [
         {
             "Address": "test_tbfirst",
