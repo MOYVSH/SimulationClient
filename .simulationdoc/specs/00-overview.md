@@ -15,7 +15,7 @@ last_modified: "2026-07-06"
 
 基于 `unity_simulation_design_v1.md` 技术设计文档，实现一款参考 *Against the Storm*、*Timberborn*、*Factorio* 的斜 45° 视角模拟经营游戏。
 
-项目已有基础框架和场景（`ApplicationScene.unity`），需要在此基础上新建模拟经营系统代码。
+项目已有基础框架和初始化入口场景（`ApplicationScene.unity`，仅作初始化不修改）。模拟经营游戏逻辑在 `Assets/Game/MiniGame_Res/Scene/GameScene.unity` 中运行。
 
 ## 目标规模
 
@@ -159,7 +159,7 @@ Assets/Game/
 │       ├── System/                 ← ★ 新增: IGameSystem, TreeLifecycleSystem, BuildingLifecycleSystem, RoadLifecycleSystem, TreeViewSystem, WorkerStateSystem, TerrainTreeSyncSystem
 │       └── Utility/                ← ★ 新增: RoadSpeedUtility
 ├── Scenes/
-│   └── ApplicationScene.unity      ← 已有主场景
+│   └── ApplicationScene.unity      ← 已有初始化入口（不修改）
 ├── Resources/
 └── MiniGame_Res/
     ├── Prefabs/                    ← ★ 模拟经营 Prefabs（新建）
@@ -167,6 +167,8 @@ Assets/Game/
     │   ├── Workers/
     │   ├── Buildings/
     │   └── UI/
+    ├── Scene/
+    │   └── GameScene.unity         ← 已有游戏场景（模拟经营运行场景）
     └── ScriptableObjects/          ← ★ SO 配置（新建）
         ├── TreeTypes/
         ├── BuildingTypes/

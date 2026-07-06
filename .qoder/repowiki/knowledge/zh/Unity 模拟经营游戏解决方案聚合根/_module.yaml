@@ -1,6 +1,6 @@
 schema_version: 1
 module_path: ""
-title: Unity 模拟客户端与 Luban 数据管线根工程
+title: Unity 模拟经营游戏解决方案聚合根
 scope:
     - .gitignore
     - .gitattributes

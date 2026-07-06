@@ -21,7 +21,7 @@ last_modified: "2026-07-06"
 
 ## 依赖
 
-无。本 Phase 为模拟经营系统的起点（项目已有基础框架和 `ApplicationScene.unity`）。
+无。本 Phase 为模拟经营系统的起点（项目已有基础框架，游戏场景为 `GameScene.unity`）。
 
 ## 任务列表
 
@@ -72,7 +72,7 @@ last_modified: "2026-07-06"
    - 支持滚轮缩放
    - 支持中键/右键旋转（可选）
    - 相机逻辑与模拟逻辑完全分离
-   - 在 `ApplicationScene.unity` 中配置
+   - 在 `GameScene.unity`（`Assets/Game/MiniGame_Res/Scene/`）中配置
 
 2. **输入**：
    - 使用 New Input System
@@ -110,11 +110,11 @@ public class GameInput : MonoBehaviour
 - 滚轮缩放平滑
 - 相机不依赖任何模拟系统即可工作
 - 输入系统无异常报错
-- 不影响已有 `ApplicationScene.unity` 中的其他功能
+- `ApplicationScene.unity` 不做任何修改（仅作初始化入口）
 
 ## 提供给下游 Phase 的契约
 
-- `ApplicationScene.unity` 为后续所有系统测试的基准场景
+- `GameScene.unity` 为后续所有系统测试的基准场景，`ApplicationScene.unity` 仅作初始化入口不修改
 - `IsometricCameraController.FocusPosition` 将供 `ChunkManager` 作为激活中心
 - `GameInput` 为 Phase 4/5 的放置/选择操作提供输入事件
 

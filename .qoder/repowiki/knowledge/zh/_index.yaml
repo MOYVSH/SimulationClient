@@ -3,11 +3,11 @@ schema_version: 1
 locale: zh-CN
 branch: master
 nodes_managed: true
-exported_at: "2026-07-06T14:58:33Z"
+exported_at: "2026-07-06T15:39:35Z"
 modules:
     "":
-        dir_name: Unity 模拟客户端与 Luban 数据管线根工程
-        title: Unity 模拟客户端与 Luban 数据管线根工程
+        dir_name: Unity 模拟经营游戏解决方案聚合根
+        title: Unity 模拟经营游戏解决方案聚合根
         scope:
             - .gitignore
             - .gitattributes
@@ -17,6 +17,7 @@ modules:
         source_files: []
         children:
             - luban_codegen
+            - simulationdoc
         depends_on: []
         related_to: []
     luban_codegen:
@@ -24,6 +25,15 @@ modules:
         title: Luban 配置与代码生成模板集
         scope:
             - LubanConfig/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []
+    simulationdoc:
+        dir_name: Unity 模拟经营项目设计文档与开发计划
+        title: Unity 模拟经营项目设计文档与开发计划
+        scope:
+            - .simulationdoc/
         source_files: []
         children: []
         depends_on: []

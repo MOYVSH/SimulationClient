@@ -10,7 +10,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "MiniGame1",
     "PackageVersion": "Simulate",
-    "PackageNote": "2026/7/6 22:43:14",
+    "PackageNote": "2026/7/7 0:00:49",
     "AssetList": [
         {
             "Address": "test_tbfirst",
@@ -125,7 +125,7 @@
             "UnityCRC": 0,
             "FileHash": "8c9b1bc7da3bfbb9e7a248541197e5b7",
             "FileCRC": 0,
-            "FileSize": 275578,
+            "FileSize": 239711,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
