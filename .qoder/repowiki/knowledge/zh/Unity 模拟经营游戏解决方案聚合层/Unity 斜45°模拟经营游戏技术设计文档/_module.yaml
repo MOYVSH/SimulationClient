@@ -1,8 +1,0 @@
-schema_version: 1
-module_path: simulationdoc
-title: Unity 斜45°模拟经营游戏技术设计文档
-scope:
-    - .simulationdoc/
-source_files: []
-depends_on: []
-related_to: []

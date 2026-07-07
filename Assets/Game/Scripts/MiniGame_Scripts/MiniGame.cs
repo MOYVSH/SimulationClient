@@ -20,6 +20,7 @@ public class MiniGame : ArchitectureProxy<MiniGame>
     private void RegisterSystem()
     {
         RegisterSystem(new ChunkSystem());
+        RegisterSystem(new TerrainSystem());
     }
 
     private void RegisterUtility()

@@ -577,21 +577,35 @@ bool active = chunkSystem.IsChunkActive(someChunkPos);
 ### 产出文件
 
 - `Assets/Game/Scripts/Simulation/World/Terrain/TerrainDataReader.cs`
+- `Assets/Game/Scripts/MiniGame_Scripts/System/TerrainSystem.cs`
 
 ### 实现细节
 
-1. 在场景启动时读取 `Terrain.terrainData.treeInstances`
-2. 将每个 `TreeInstance.position` 转换为 `GridPos`
-3. 创建 `TreeData` 并通过 `WorldData` 注册
-4. 在 `WorldGrid` 对应 Cell 写入 `TreeId` 和 `Occupied/HasTree` 标记
-5. 此步骤只读 Terrain，不修改 Terrain
+1. `TerrainDataReader` 为纯数据类（不继承 MonoBehaviour），由 `TerrainSystem` 持有
+2. `TerrainSystem` 继承 `AbstractSystem`，负责初始化和操作 TerrainDataReader
+3. 在 `AfterSceneInit()` 时读取 `Terrain.terrainData.treeInstances`
+4. 将每个 `TreeInstance.position` 转换为 `GridPos`
+5. 创建 `TreeData` 并通过 `WorldData` 注册
+6. 在 `WorldGrid` 对应 Cell 写入 `TreeId` 和 `Occupied/HasTree` 标记
+7. 此步骤只读 Terrain，不修改 Terrain
 
 ### 对外接口
 
 ```csharp
-public class TerrainDataReader : MonoBehaviour
+// TerrainDataReader：纯数据类，由 TerrainSystem 持有
+public class TerrainDataReader
 {
-    public int ReadTreesFromTerrain(Terrain terrain);
+    public int ReadTreesFromTerrain(Terrain terrain, WorldData worldData, WorldGrid worldGrid);
+}
+
+// TerrainSystem：QFramework System，驱动 TerrainDataReader
+public class TerrainSystem : AbstractSystem
+{
+    protected override void OnInit();            // 创建 TerrainDataReader 实例
+    public void AfterSceneInit();                // 执行树木同步
+    public void ClearDataAfterChangeLevel();     // 清理状态
+    public Terrain CurrentTerrain { get; }       // 当前场景 Terrain 引用
+    public TerrainDataReader Reader { get; }     // TerrainDataReader 实例
 }
 ```
 
@@ -600,6 +614,7 @@ public class TerrainDataReader : MonoBehaviour
 - Terrain 上有 N 棵树，则生成 N 个 TreeData
 - TreeData 的 GridPos 与世界位置对应正确
 - WorldGrid 对应 Cell 标记为 HasTree + Occupied
+- TerrainSystem 在 MiniGame 中注册，通过 this.GetSystem<TerrainSystem>() 访问
 
 ---
 
@@ -611,8 +626,8 @@ public class TerrainDataReader : MonoBehaviour
 | `WorldData` | 所有实体权威数据、增删改事件 | `model.WorldData` |
 | `WorldGrid` | 空间查询、占用管理、可行走判断 | `model.WorldGrid` |
 | `ChunkSystem` | 3x3 Chunk 激活/停用事件 | `this.GetSystem<ChunkSystem>()` |
+| `TerrainSystem` | Terrain 数据读取、树木初始同步 | `this.GetSystem<TerrainSystem>()` |
 | `CoordinateUtility` | 坐标转换 | 静态方法直接调用 |
-| `TerrainDataReader` | 初始世界生成 | MonoBehaviour 组件 |
 
 ## 阻塞 downstream 的风险
 

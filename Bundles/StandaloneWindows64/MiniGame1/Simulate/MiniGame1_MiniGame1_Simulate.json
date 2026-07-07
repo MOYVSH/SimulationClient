@@ -10,7 +10,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "MiniGame1",
     "PackageVersion": "Simulate",
-    "PackageNote": "2026/7/7 18:08:16",
+    "PackageNote": "2026/7/7 23:48:08",
     "AssetList": [
         {
             "Address": "test_tbfirst",
@@ -89,7 +89,7 @@
         {
             "BundleName": "assets_game_minigame_res_config.bundle",
             "UnityCRC": 0,
-            "FileHash": "619d8491a2a2cc9ebd782eabb364b256",
+            "FileHash": "cf923449148dfc70e24cb4b5ed2b2628",
             "FileCRC": 0,
             "FileSize": 114,
             "Encrypted": false,
@@ -99,7 +99,7 @@
         {
             "BundleName": "assets_game_minigame_res_entities_prefab_actor.bundle",
             "UnityCRC": 0,
-            "FileHash": "4ff80cdb9e676f0592b452d62b7d506f",
+            "FileHash": "b22109c2665d2553f48204b7878c89e1",
             "FileCRC": 0,
             "FileSize": 4108,
             "Encrypted": false,
@@ -111,7 +111,7 @@
         {
             "BundleName": "assets_game_minigame_res_entities_prefab_trigger.bundle",
             "UnityCRC": 0,
-            "FileHash": "32db7849dc6ea91e3e47d52ac76680ce",
+            "FileHash": "61d93377cbd68bf92235d46eeeca8680",
             "FileCRC": 0,
             "FileSize": 1481,
             "Encrypted": false,
@@ -123,9 +123,9 @@
         {
             "BundleName": "assets_game_minigame_res_scene.bundle",
             "UnityCRC": 0,
-            "FileHash": "2dbd9316afa913aad931de26c3a45f62",
+            "FileHash": "8c9b1bc7da3bfbb9e7a248541197e5b7",
             "FileCRC": 0,
-            "FileSize": 239700,
+            "FileSize": 242469,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -133,7 +133,7 @@
         {
             "BundleName": "assets_game_minigame_res_ui_prefab.bundle",
             "UnityCRC": 0,
-            "FileHash": "dc7a440e31e1aa067163a6cbff6c8a75",
+            "FileHash": "90ccaaf6186a234dc18cb8289429ae6f",
             "FileCRC": 0,
             "FileSize": 13467,
             "Encrypted": false,
@@ -143,9 +143,9 @@
         {
             "BundleName": "unityshaders.bundle",
             "UnityCRC": 0,
-            "FileHash": "839f53a32e1a2a25483befd45682a966",
+            "FileHash": "e85bdcf0a363f80a5241c46a0d3cf69f",
             "FileCRC": 0,
-            "FileSize": 2713,
+            "FileSize": 2624,
             "Encrypted": false,
             "Tags": [
                 "ShaderVariants"

@@ -22,7 +22,9 @@ public class AfterSceneInitLogicCmd : AbstractCommand
         {
             this.GetModel<GameWorldModel>().InitWorldData(_terrain);
         }
-        
+
+        // TerrainSystem 负责树木同步，内部会检查 Terrain 和 WorldData 是否就绪
+        this.GetSystem<TerrainSystem>().AfterSceneInit();
 
         this.GetSystem<ActorSystem>().AfterSceneInit();
         this.GetSystem<ChunkSystem>().AfterSceneInit();

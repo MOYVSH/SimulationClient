@@ -1,0 +1,8 @@
+schema_version: 1
+module_path: simulationdoc
+title: Unity 模拟经营项目技术设计与开发计划
+scope:
+    - .simulationdoc/
+source_files: []
+depends_on: []
+related_to: []

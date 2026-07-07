@@ -3,7 +3,7 @@ schema_version: 1
 locale: zh-CN
 branch: master
 nodes_managed: true
-exported_at: "2026-07-06T16:19:02Z"
+exported_at: "2026-07-07T14:53:08Z"
 modules:
     "":
         dir_name: Unity 模拟经营游戏解决方案聚合层
@@ -30,8 +30,8 @@ modules:
         depends_on: []
         related_to: []
     simulationdoc:
-        dir_name: Unity 斜45°模拟经营游戏技术设计文档
-        title: Unity 斜45°模拟经营游戏技术设计文档
+        dir_name: Unity 模拟经营项目技术设计与开发计划
+        title: Unity 模拟经营项目技术设计与开发计划
         scope:
             - .simulationdoc/
         source_files: []
