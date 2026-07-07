@@ -59,10 +59,10 @@ last_modified: "2026-07-06"
 
 ### 产出文件
 
-- `Assets/Game/Scripts/Simulation/Camera/IsometricCameraController.cs`
+- `Assets/Game/Scripts/MiniGame_Scripts/Controller/Camera/IsometricCameraController.cs`
 - `Assets/Game/Scripts/Simulation/Input/GameInput.cs`
 
-> **注意**：项目已有 `Assets/Game/Scripts/MiniGame_Scripts/Controller/Camera/` 中的相机控制器，供小游戏使用。模拟经营需要独立的等轴视角相机，不修改已有代码。
+> **注意**：IsometricCameraController 放置在 `Assets/Game/Scripts/MiniGame_Scripts/Controller/Camera/` 下，与已有 QFramework 相机控制器 CameraController 共存。
 
 ### 实现细节
 

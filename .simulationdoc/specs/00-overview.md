@@ -143,7 +143,7 @@ Assets/Game/
 │   │   ├── SaveLoad/               ← SaveData, SaveLoadManager
 │   │   ├── View/                   ← 通用表现层
 │   │   │   └── Pool/               ← ObjectPool, IPoolable, PoolManager
-│   │   ├── Camera/                 ← IsometricCameraController
+│   │   ├── Camera/                 ← 已迁移至 MiniGame_Scripts/Controller/Camera
 │   │   ├── Input/                  ← GameInput (New Input System)
 │   │   ├── UI/                     ← PlacementUI, WorkerInfoPanel
 │   │   └── Profiling/              ← PerformanceMonitor
@@ -153,7 +153,7 @@ Assets/Game/
 │   └── MiniGame_Scripts/           ← 已有 QFramework MVC 代码 + ★ 模拟经营系统/工具
 │       ├── Command/
 │       ├── Controller/
-│       │   └── Camera/             ← 已有相机控制器
+│       │   └── Camera/             ← CameraController / IsometricCameraController
 │       ├── Event/
 │       ├── Model/
 │       ├── System/                 ← ★ 新增: IGameSystem, TreeLifecycleSystem, BuildingLifecycleSystem, RoadLifecycleSystem, TreeViewSystem, WorkerStateSystem, TerrainTreeSyncSystem

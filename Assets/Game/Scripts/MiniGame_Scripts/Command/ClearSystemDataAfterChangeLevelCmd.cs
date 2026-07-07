@@ -6,5 +6,6 @@ public class ClearSystemDataAfterChangeLevelCmd : AbstractCommand
     protected override void OnExecute()
     {
         this.GetSystem<ActorSystem>().ClearDataAfterChangeLevel();
+        this.GetSystem<ActorSystem>().ClearDataAfterChangeLevel();
     }
 }

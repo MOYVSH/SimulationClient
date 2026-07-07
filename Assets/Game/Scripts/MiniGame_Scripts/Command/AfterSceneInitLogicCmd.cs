@@ -1,5 +1,6 @@
 ﻿using QFramework;
 using Runtime.System;
+using UnityEngine;
 
 public class AfterSceneInitLogicCmd : AbstractCommand
 {
@@ -12,6 +13,18 @@ public class AfterSceneInitLogicCmd : AbstractCommand
         this.GetSystem<MapQuadTreeSystem>().AfterSceneInit();
         this.GetSystem<PathfindSystem>().AfterSceneInit();*/
         
+        var _terrain = UnityEngine.Object.FindFirstObjectByType<Terrain>();
+        if (_terrain == null)
+        {
+            Debug.LogError("未找到 Terrain");
+        }
+        else
+        {
+            this.GetModel<GameWorldModel>().InitWorldData(_terrain);
+        }
+        
+
         this.GetSystem<ActorSystem>().AfterSceneInit();
+        this.GetSystem<ChunkSystem>().AfterSceneInit();
     }
 }

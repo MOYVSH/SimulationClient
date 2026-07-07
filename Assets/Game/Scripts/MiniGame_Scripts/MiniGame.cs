@@ -14,11 +14,12 @@ public class MiniGame : ArchitectureProxy<MiniGame>
     private void RegisterModel()
     {
         RegisterModel(new ActorModel());
+        RegisterModel(new GameWorldModel());
     }
 
     private void RegisterSystem()
     {
-        
+        RegisterSystem(new ChunkSystem());
     }
 
     private void RegisterUtility()

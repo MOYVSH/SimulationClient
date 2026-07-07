@@ -79,7 +79,7 @@
 | 文件 | 路径 | 命名空间 |
 |------|------|---------|
 | GameInput.cs | `Assets/Game/Scripts/Simulation/Input/` | `Simulation` |
-| IsometricCameraController.cs | `Assets/Game/Scripts/Simulation/Camera/` | `Simulation` |
+| IsometricCameraController.cs | `Assets/Game/Scripts/MiniGame_Scripts/Controller/Camera/` | （全局） |
 
 两个文件均属于 `Assembly-CSharp` 程序集，可直接引用项目中所有框架。
 

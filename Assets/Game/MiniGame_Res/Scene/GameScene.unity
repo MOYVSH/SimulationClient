@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b5c73d5a64eaf04d95e1aaccdc53f4e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Simulation.IsometricCameraController
+  m_EditorClassIdentifier: Assembly-CSharp::IsometricCameraController
   _pitch: 45
   _yaw: 45
   _distance: 20
