@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "com.bytedance.ide.trae": "https://github.com/Pico-Developer/TRAE-Editor-Unity.git",
+    "com.coplaydev.unity-mcp": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
     "com.tuyoogame.yooasset": "2.3.18",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.13",
