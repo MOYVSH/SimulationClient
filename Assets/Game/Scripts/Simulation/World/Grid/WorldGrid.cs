@@ -7,7 +7,7 @@ namespace Simulation
     /// 世界空间数据库：存储每个格子的状态信息。
     ///
     /// 核心职责：
-    ///   1. 空间查询：给定格子坐标，返回该格子的状态（是否可行走、被谁占据）
+    ///   1. 空间查询：给定格子坐标，返回该格子的状态（是否可行走、被谁占据、是什么类型）
     ///   2. 状态更新：设置/修改格子的标记和实体 ID
     ///   3. 边界管理：定义世界的有效范围，边界外视为不可行走
     ///
@@ -15,11 +15,15 @@ namespace Simulation
     ///   优点：按需分配，支持任意坐标（包括负数），内存友好
     ///   缺点：比一维数组慢（哈希查找 vs 直接索引）
     ///   适用场景：格子数量 < 百万级（65536 个格子完全没问题）
-    ///   如果后续 A* 寻路成为瓶颈，可在 Phase 6 优化为一维数组
+    ///   如果后续 A* 寻路成为瓶颈，可在 P4 优化为一维数组
     ///
     /// 默认值约定：
-    ///   边界内的格子（未显式设置过）：Flags = Walkable，所有 ID = 0
-    ///   边界外的格子：Flags = None（不可行走），所有 ID = 0
+    ///   边界内的格子（未显式设置过）：Flags = Walkable，OccupantId = 0，TypeId = None
+    ///   边界外的格子：Flags = None（不可行走），OccupantId = 0，TypeId = None
+    ///
+    /// P0 泛化说明：
+    ///   本类不感知具体实体种类，只负责「格子 → (OccupantId, TypeId, Flags)」。
+    ///   新增实体类型无需改动这里。
     /// </summary>
     public class WorldGrid
     {
@@ -77,8 +81,8 @@ namespace Simulation
 
         /// <summary>
         /// 获取指定格子的状态。
-        /// 边界内未设置的格子返回默认值（Walkable，ID 全为 0）。
-        /// 边界外返回默认值（不可行走，ID 全为 0）。
+        /// 边界内未设置的格子返回默认值（Walkable，OccupantId = 0）。
+        /// 边界外返回默认值（不可行走，OccupantId = 0）。
         /// </summary>
         public Cell GetCell(GridPos pos)
         {
@@ -113,13 +117,26 @@ namespace Simulation
             return GetCell(pos).IsOccupied;
         }
 
+        /// <summary>获取指定格子上的主实体 ID；无实体返回 0。</summary>
+        public int GetOccupantAt(GridPos pos)
+        {
+            return GetCell(pos).OccupantId;
+        }
+
+        /// <summary>获取指定格子上主实体的类型 ID；无实体返回 EntityTypes.None。</summary>
+        public int GetTypeIdAt(GridPos pos)
+        {
+            return GetCell(pos).TypeId;
+        }
+
         /// <summary>
         /// 获取指定格子上指定类型的实体 ID。
         /// 返回 0 表示该格子没有该类型的实体。
+        /// P0 起 typeId 为开放 int（见 EntityTypes），不再依赖封闭枚举。
         /// </summary>
-        public int GetEntityAt(GridPos pos, EntityType type)
+        public int GetEntityAt(GridPos pos, int typeId)
         {
-            return GetCell(pos).GetEntityId(type);
+            return GetCell(pos).GetEntityId(typeId);
         }
 
         // ---- 格子修改辅助方法 ----
@@ -128,10 +145,9 @@ namespace Simulation
         // 1. 只改标记（最常用）：
         //      grid.SetFlag(pos, CellFlags.HasTree, true);
         //
-        // 2. 改多个字段（如同时设置标记和实体 ID）：
+        // 2. 改多个字段（用 SetOccupant 一次性写 ID + 类型 + 标记）：
         //      var cell = grid.GetCell(pos);
-        //      cell.SetFlag(CellFlags.HasTree | CellFlags.Occupied);
-        //      cell.TreeId = treeId;
+        //      cell.SetOccupant(treeId, EntityTypes.Tree, CellFlags.HasTree | CellFlags.Occupied);
         //      grid.SetCell(pos, cell);
 
         /// <summary>

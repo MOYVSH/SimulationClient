@@ -1,0 +1,37 @@
+{
+  "requiredDirs": [
+    "Assets",
+    "Assets/Game",
+    "Assets/Plugins",
+    "Assets/Resources",
+    "Assets/Settings",
+    "Assets/StreamingAssets",
+    "Assets/TextMesh Pro",
+    "Packages",
+    "ProjectSettings"
+  ],
+  "recommendedDirs": [
+    "Assets/Scripts/Editor"
+  ],
+  "requiredFiles": [
+    "ProjectSettings/ProjectVersion.txt",
+    "Packages/manifest.json"
+  ],
+  "requireMetaForEveryAsset": true,
+  "requireScenesInBuildSettings": true,
+  "scanAbsolutePaths": true,
+  "scanDanglingGuids": true,
+  "danglingGuidLevel": "warn",
+  "builtinGuidAllowlist": [],
+  "extraGuidDirs": [],
+  "requireFrozenDesign": true,
+  "traceMarker": "@trace",
+  "compileLogPath": "",
+  "ignore": [
+    {
+      "check": "scenes",
+      "path": "Assets/Game/Framework/Ugui/Runtime/ProceduralUIImage/Demo/demo_examples.unity",
+      "reason": "MOYVUnityUGUI 插件自带示例场景，按设计不进入正式构建列表；属第三方示例资源，不改动上游"
+    }
+  ]
+}

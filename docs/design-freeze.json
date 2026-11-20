@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "status": "frozen",
+  "frozenAt": "2026-11-20",
+  "project": "SimulationClient / MiniGame1",
+  "items": [
+    {
+      "id": "MECH-001",
+      "type": "mechanic",
+      "name": "[P0 基线] 格子单占用模型：Cell.OccupantId + TypeId + Flags + Reserved，仍为 16 字节",
+      "confirmed": true
+    },
+    {
+      "id": "MECH-002",
+      "type": "mechanic",
+      "name": "[P0 基线] 开放实体类型 ID：EntityTypes 常量表，0 保留给无实体，1..7 已占用",
+      "confirmed": true
+    },
+    {
+      "id": "MECH-003",
+      "type": "mechanic",
+      "name": "[P0 基线] 统一实体仓储：WorldData 通用 CRUD 与 EntityAdded/Removed/Modified 事件，事件只传 ID",
+      "confirmed": true
+    },
+    {
+      "id": "MECH-004",
+      "type": "mechanic",
+      "name": "[P0 基线] Terrain 树木导入适配统一仓储与 SetOccupant",
+      "confirmed": true
+    },
+    {
+      "id": "MECH-005",
+      "type": "mechanic",
+      "name": "[P0 基线] WorldGrid 按 typeId 查询，新增 GetOccupantAt / GetTypeIdAt",
+      "confirmed": true
+    },
+    {
+      "id": "MECH-010",
+      "type": "mechanic",
+      "name": "[P1/WP-01] 实体数据补全：状态枚举、HP、尺寸、生长与建造计时字段",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-011",
+      "type": "mechanic",
+      "name": "[P1/WP-02] 多格放置校验与占格生命周期管理（GridOccupancy）",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-012",
+      "type": "mechanic",
+      "name": "[P2/WP-03] Job 队列、优先级与 Steps 分解",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-013",
+      "type": "mechanic",
+      "name": "[P2/WP-04] Worker 状态机与任务执行",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-014",
+      "type": "mechanic",
+      "name": "[P2/WP-05] 采集与建造闭环串联",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-015",
+      "type": "mechanic",
+      "name": "[P3/WP-06] 物品、库存与 Haul 搬运",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-016",
+      "type": "mechanic",
+      "name": "[P4/WP-07] 格点寻路与 GameScene/Land 上 AstarPath 组件去留",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-017",
+      "type": "mechanic",
+      "name": "[P5/WP-08] ChunkActivated/Deactivated 接对象池与实体视图",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-018",
+      "type": "mechanic",
+      "name": "[P6/WP-11] 存档：WorldData 序列化与恢复",
+      "confirmed": false
+    },
+    {
+      "id": "MECH-019",
+      "type": "mechanic",
+      "name": "[治理/WP-12] 输入方案统一、Chunk 空转处理、未使用依赖清理",
+      "confirmed": false
+    },
+    {
+      "id": "UI-001",
+      "type": "ui",
+      "name": "[P5/WP-09] 格线、悬停高亮、多格建造预览与逐格合法性反馈",
+      "confirmed": false
+    },
+    {
+      "id": "UI-002",
+      "type": "ui",
+      "name": "[P5/WP-10] 主 HUD 信息架构与面板规范",
+      "confirmed": false
+    },
+    {
+      "id": "ART-001",
+      "type": "art",
+      "name": "[P5] 格子状态色板、图标集与美术资源清单",
+      "confirmed": false
+    },
+    {
+      "id": "NUM-001",
+      "type": "numeric",
+      "name": "[待确认] 建造耗时、采集耗时、Worker 移动速度等可调数值与极值验算",
+      "confirmed": false
+    },
+    {
+      "id": "PLAT-001",
+      "type": "platform",
+      "name": "[待确认] 目标平台与输入方案统一（当前 activeInputHandler=2，两套输入并存）",
+      "confirmed": false
+    },
+    {
+      "id": "ART-002",
+      "type": "art",
+      "name": "[待确认] 美术风格锚点与禁忌、资源尺寸与命名规范",
+      "confirmed": false
+    }
+  ]
+}

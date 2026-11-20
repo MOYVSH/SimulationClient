@@ -1,0 +1,220 @@
+{
+  "projectDir": "D:\\UnityProgram\\SimulationClient",
+  "errorCount": 1,
+  "warningCount": 4,
+  "items": [
+    {
+      "level": "info",
+      "check": "spec",
+      "message": "已加载规格文件: unity-project-spec.json",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "warn",
+      "check": "layout",
+      "message": "缺少建议目录: Assets/Scripts/Editor（不阻塞，但按规范应有）",
+      "path": "Assets/Scripts/Editor",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "projectVersion",
+      "message": "编辑器版本: 6000.3.2f1",
+      "path": "ProjectSettings/ProjectVersion.txt",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "manifest",
+      "message": "包依赖 52 项，格式合法",
+      "path": "Packages/manifest.json",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "metaPairing",
+      "message": "1209 个文件与 253 个目录的元数据配对完整",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "guidUnique",
+      "message": "1462 个 GUID 全部唯一",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "scenes",
+      "message": "3 个场景均已写入构建列表（另有 1 条按规格抑制）",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "buildSettings",
+      "message": "构建列表 2 个条目均有效且启用",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "asmdef",
+      "message": "检查了 26 个程序集定义",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "error",
+      "check": "csharp",
+      "message": "以下脚本不是合法 UTF-8: Assets/Game/Scripts/Common/UI/UICircleImage.cs",
+      "path": "",
+      "hint": "",
+      "files": [
+        "Assets/Game/Scripts/Common/UI/UICircleImage.cs"
+      ],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "csharp",
+      "message": "检查了 814 个 C# 脚本",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "warn",
+      "check": "danglingGuids",
+      "message": "有 191 个 GUID（共 319 处引用）在 Assets 中找不到归属资源，疑似引用已删除资源或指向内置/包内资源。涉及文件示例: Assets/AssetArtScannerSetting.asset, Assets/Game/Framework/Ugui/Resources/Prefabs/WaterMark3D.prefab, Assets/Game/Framework/Ugui/Runtime/ProceduralUIImage/Demo/demo_examples.unity, Assets/Game/MiniGame_Res/Entities/Prefab/Actor/Cube.prefab, Assets/Game/MiniGame_Res/Scene/GameScene.unity, Assets/Game/MiniGame_Res/UI/Prefab/LoadingView.prefab, Assets/Game/Resources/AssetBundleCollectorSetting.asset, Assets/Game/Resources/Materials/Blue.mat",
+      "path": "",
+      "hint": "若确认是内置或包内资源，把它的 GUID 写入规格文件 builtinGuidAllowlist 即可消除噪音；否则说明有资源被误删，需要在编辑器里重新指派引用",
+      "files": [
+        "Assets/AssetArtScannerSetting.asset",
+        "Assets/Game/Framework/Ugui/Resources/Prefabs/WaterMark3D.prefab",
+        "Assets/Game/Framework/Ugui/Runtime/ProceduralUIImage/Demo/demo_examples.unity",
+        "Assets/Game/MiniGame_Res/Entities/Prefab/Actor/Cube.prefab",
+        "Assets/Game/MiniGame_Res/Scene/GameScene.unity",
+        "Assets/Game/MiniGame_Res/UI/Prefab/LoadingView.prefab",
+        "Assets/Game/Resources/AssetBundleCollectorSetting.asset",
+        "Assets/Game/Resources/Materials/Blue.mat",
+        "Assets/Game/Resources/Materials/Green.mat",
+        "Assets/Game/Resources/Materials/Red.mat",
+        "Assets/Game/Resources/Materials/Yellow.mat",
+        "Assets/Game/Resources/Prefabs/Capsule.prefab",
+        "Assets/Game/Resources/Prefabs/Cube1.prefab",
+        "Assets/Game/Resources/Prefabs/Cube2.prefab",
+        "Assets/Game/Resources/Prefabs/Cube3.prefab",
+        "Assets/Game/Resources/Prefabs/Objs.prefab",
+        "Assets/Game/Resources/Prefabs/Role.prefab",
+        "Assets/Game/Resources/Prefabs/Sphere.prefab",
+        "Assets/Game/Resources/TestMaterial/Sea.mat",
+        "Assets/Game/Resources/UI/Prefab/UIRoot.prefab",
+        "Assets/Game/Resources/YooAssetSettings.asset",
+        "Assets/Game/Scenes/ApplicationScene.unity",
+        "Assets/Plugins/Astar/Drawing/Resources/aline_outline.mat",
+        "Assets/Settings/DefaultVolumeProfile.asset",
+        "Assets/Settings/Mobile_RPAsset.asset",
+        "Assets/Settings/Mobile_Renderer.asset",
+        "Assets/Settings/PC_RPAsset.asset",
+        "Assets/Settings/PC_Renderer.asset",
+        "Assets/Settings/SampleSceneProfile.asset",
+        "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+        "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset",
+        "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset",
+        "Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset",
+        "Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset",
+        "Assets/TextMesh Pro/Resources/TMP Settings.asset"
+      ],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "absolutePaths",
+      "message": "未发现机器绝对路径",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "warn",
+      "check": "traceability",
+      "message": "有 5 个已确认条目在工程中未被任何文件引用（覆盖缺口）: MECH-001, MECH-002, MECH-003, MECH-004, MECH-005",
+      "path": "",
+      "hint": "在对应脚本或数据资产里加一行标记，如 // @trace MECH-001",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "warn",
+      "check": "traceability",
+      "message": "有 16 个条目尚未确认，不应据此开发: ART-001, ART-002, MECH-010, MECH-011, MECH-012, MECH-013, MECH-014, MECH-015, MECH-016, MECH-017",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "traceability",
+      "message": "冻结条目 21 个（已确认 5），工程引用覆盖率 0/5 = 0%",
+      "path": "D:/UnityProgram/SimulationClient/docs/design-freeze.json",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "compileLog",
+      "message": "未提供编译日志，跳过（加 --compile-log 可校验真实编译结果）",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    },
+    {
+      "level": "info",
+      "check": "dotnetBuild",
+      "message": "未启用真实编译（加 --dotnet-build 启用，需要解决方案文件与 dotnet）",
+      "path": "",
+      "hint": "",
+      "files": [],
+      "isNew": false
+    }
+  ],
+  "scriptVersion": "1.1.0",
+  "ignored": {
+    "scenes": 1
+  },
+  "baseline": {
+    "newTokens": 0,
+    "resolvedTokens": 0,
+    "persistedTokens": 39,
+    "newErrors": 0,
+    "persistedErrors": 1,
+    "newWarnings": 0,
+    "persistedWarnings": 4
+  }
+}

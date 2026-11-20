@@ -9,9 +9,12 @@ namespace Simulation
     /// 设计说明：
     ///   1. 纯数据类，不继承 MonoBehaviour，由 TerrainSystem 持有和操作
     ///   2. 只读 Terrain，不修改 Terrain（单向数据流）
-    ///   3. 每棵树占 1 格，如果同一格子有多棵树，只保留第一棵（后续跳过）
-    ///   4. TreeTypeId 暂用 treeInstance.prototypeIndex，Phase 2 树种系统完善后可改为配置映射
+    ///   3. 每棵树占 1 格；同一格子已有主实体则跳过（P0 单占用模型）
+    ///   4. TreeTypeId 暂用 treeInstance.prototypeIndex，P1 树种配置完善后改为映射表
     ///   5. 世界坐标 Y 由 Terrain.SampleHeight 采样，确保与地形贴合
+    ///
+    /// P0 适配点：CreateTree → Create，cell.TreeId → cell.SetOccupant(id, typeId, flags)。
+    /// 泛化后写入格子时必须同时写 OccupantId 和 TypeId，否则 WorldGrid 无法回答「是什么」。
     /// </summary>
     public class TerrainDataReader
     {
@@ -69,9 +72,9 @@ namespace Simulation
                     continue;
                 }
 
-                // 检查格子是否已有树（避免重复注册）
+                // 检查格子是否已有主实体（P0 单占用模型，取代旧的 HasTree 判重）
                 Cell existingCell = worldGrid.GetCell(gridPos);
-                if (existingCell.HasFlag(CellFlags.HasTree))
+                if (existingCell.HasOccupant)
                 {
                     skipCount++;
                     continue;
@@ -80,13 +83,12 @@ namespace Simulation
                 // 创建 TreeData（TreeTypeId 暂用 prototypeIndex）
                 TreeData treeData = new TreeData(gridPos, ti.prototypeIndex);
 
-                // 注册到 WorldData
-                int treeId = worldData.CreateTree(treeData);
+                // 注册到统一仓储
+                int treeId = worldData.Create(treeData);
 
-                // 写入 WorldGrid
+                // 写入 WorldGrid：ID + 类型 + 派生标记位一次性写入
                 var cell = worldGrid.GetCell(gridPos);
-                cell.TreeId = treeId;
-                cell.SetFlag(CellFlags.HasTree | CellFlags.Occupied);
+                cell.SetOccupant(treeId, EntityTypes.Tree, CellFlags.HasTree | CellFlags.Occupied);
                 worldGrid.SetCell(gridPos, cell);
 
                 successCount++;

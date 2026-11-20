@@ -4,241 +4,173 @@ using System.Collections.Generic;
 namespace Simulation
 {
     /// <summary>
-    /// 世界权威数据层：存储所有实体的完整数据，提供 CRUD 和事件通知。
+    /// 世界权威数据层（P0 泛化：统一实体仓储）。
     ///
-    /// 与 WorldGrid 的关系：
-    ///   WorldData = "实体是什么"（按 ID 查完整数据）
-    ///   WorldGrid = "格子上有什么"（按坐标查空间状态）
-    ///   两者通过 int ID 建立双向索引（详见文档 1.3a）
+    /// 与泛化前的区别：
+    ///   旧：4 张 Dictionary&lt;int, T&gt;、4 套 CRUD、11 个按类型分开的事件。
+    ///       每加一种实体都要加一张表 + 一套 CRUD + 三个事件 + 一个 switch 分支。
+    ///   新：1 张主表 + 1 张按 TypeId 的分组索引 + 1 套通用 CRUD + 3 个通用事件。
+    ///       新增实体类型只需实现 IWorldEntity 并给一个 TypeId 常量。
     ///
-    /// 事件设计原则：
-    ///   1. 事件参数只传 ID，不传实体对象
-    ///      - 订阅方按需去字典取数据，避免传递大对象
-    ///      - 如果实体已被删除，订阅方查询返回 null，自然处理
+    /// 与 WorldGrid 的关系（不变）：
+    ///   WorldData = 「实体是什么」（按 ID 查完整数据）
+    ///   WorldGrid = 「格子上有什么」（按坐标查 OccupantId + TypeId）
+    ///   两者通过 int ID 建立双向索引。
+    ///
+    /// 事件设计原则（沿用旧版，保持热路径零额外分配）：
+    ///   1. 事件只传 ID，不传实体对象；订阅方按需 Get(id) 反查
     ///   2. 用 C# 原生 event Action&lt;int&gt;，不用 QFramework SendEvent
-    ///      - Tick 热路径（如每秒触发多次）避免 GC 分配
-    ///      - QFramework 事件适合跨模块低频通知，不适合高频场景
+    ///   3. 通用事件不区分类型：想知道类型就用 Get(id).TypeId，
+    ///      或改用 CountOfType / GetAllOfType 按类型过滤
+    ///   4. Removed 在实体移出主表之后触发，订阅方 Get(id) 返回 null 属于预期行为
     ///
     /// 线程安全：
     ///   WorldData 只应在 Unity 主线程访问，不做线程安全处理。
-    ///   如果需要异步加载（如从存档读取），应在协程/Task 中统一在主线程操作。
     /// </summary>
     public class WorldData
     {
         // ---- 数据存储 ----
-        // 使用 Dictionary<int, T> 而非数组，原因：
-        //   1. ID 稀疏（删除后 ID 不复用，数组会有空洞）
-        //   2. 删除操作 O(1)
-        //   3. 不需要按 ID 排序遍历
+        // _entities：按 ID 查完整数据的主表（权威来源）
+        // _byType  ：按 TypeId 的分组索引，值指向同一批对象引用（不复制数据）
+        // 两张表在 Create / Remove 中同步维护；类型为空时分组会被移除，避免空字典堆积。
 
-        private readonly Dictionary<int, TreeData> _trees = new Dictionary<int, TreeData>();
-        private readonly Dictionary<int, BuildingData> _buildings = new Dictionary<int, BuildingData>();
-        private readonly Dictionary<int, RoadData> _roads = new Dictionary<int, RoadData>();
-        private readonly Dictionary<int, WorkerData> _workers = new Dictionary<int, WorkerData>();
+        private readonly Dictionary<int, IWorldEntity> _entities = new Dictionary<int, IWorldEntity>();
+        private readonly Dictionary<int, Dictionary<int, IWorldEntity>> _byType =
+            new Dictionary<int, Dictionary<int, IWorldEntity>>();
 
         private readonly IdGenerator _idGenerator = new IdGenerator();
 
         // ---- 事件定义 ----
-        // 每种实体提供 Added/Removed/Modified 三种事件
-        // Modified 事件在某些实体（如 Road）可能不常用，保留以备扩展
+        // 通用三件套，取代旧版 Tree/Building/Road/Worker 各自的 Added/Removed/Modified。
 
-        /// <summary>树实体事件：添加、删除、修改。</summary>
-        public event Action<int> TreeAdded, TreeRemoved, TreeModified;
+        /// <summary>实体创建后触发，参数为实体 ID。</summary>
+        public event Action<int> EntityAdded;
 
-        /// <summary>建筑实体事件：添加、删除、修改。</summary>
-        public event Action<int> BuildingAdded, BuildingRemoved, BuildingModified;
+        /// <summary>实体删除后触发，参数为实体 ID。</summary>
+        public event Action<int> EntityRemoved;
 
-        /// <summary>道路实体事件：添加、删除。</summary>
-        public event Action<int> RoadAdded, RoadRemoved;
-
-        /// <summary>工人实体事件：添加、删除、修改。</summary>
-        public event Action<int> WorkerAdded, WorkerRemoved, WorkerModified;
+        /// <summary>实体被修改后触发，参数为实体 ID。</summary>
+        public event Action<int> EntityModified;
 
         // ================================================================
-        // Tree CRUD
+        // 通用 CRUD
         // ================================================================
 
-        /// <summary>创建树实体，分配 ID 并触发 TreeAdded 事件。</summary>
-        public int CreateTree(TreeData data)
+        /// <summary>
+        /// 创建实体：分配 ID、写入主表与类型索引、触发 EntityAdded。
+        /// 返回新 ID；传入 null 时返回 0（0 = 无实体，不触发事件）。
+        /// </summary>
+        public int Create(IWorldEntity entity)
         {
+            if (entity == null)
+                return 0;
+
             int id = _idGenerator.Next();
-            data.Id = id;
-            _trees[id] = data;
-            TreeAdded?.Invoke(id);
+            entity.Id = id;
+            _entities[id] = entity;
+
+            int typeId = entity.TypeId;
+            if (!_byType.TryGetValue(typeId, out var group))
+            {
+                group = new Dictionary<int, IWorldEntity>();
+                _byType[typeId] = group;
+            }
+            group[id] = entity;
+
+            EntityAdded?.Invoke(id);
             return id;
         }
 
-        /// <summary>根据 ID 获取树实体。不存在返回 null。</summary>
-        public TreeData GetTree(int id)
+        /// <summary>按 ID 获取实体（接口形式）。不存在返回 null。</summary>
+        public IWorldEntity Get(int id)
         {
-            return _trees.TryGetValue(id, out var data) ? data : null;
+            return _entities.TryGetValue(id, out var entity) ? entity : null;
         }
 
-        /// <summary>删除树实体，触发 TreeRemoved 事件。</summary>
-        public bool RemoveTree(int id)
+        /// <summary>按 ID 获取指定 CLR 类型的实体。类型不匹配或不存在返回 null。</summary>
+        public T Get<T>(int id) where T : class, IWorldEntity
         {
-            if (!_trees.Remove(id))
+            return Get(id) as T;
+        }
+
+        /// <summary>按 ID 查询类型。不存在返回 EntityTypes.None(0)。</summary>
+        public int GetTypeId(int id)
+        {
+            return _entities.TryGetValue(id, out var entity) ? entity.TypeId : EntityTypes.None;
+        }
+
+        /// <summary>删除实体：同步清理主表与类型索引，触发 EntityRemoved。</summary>
+        public bool Remove(int id)
+        {
+            if (!_entities.TryGetValue(id, out var entity))
                 return false;
-            TreeRemoved?.Invoke(id);
+
+            _entities.Remove(id);
+
+            if (_byType.TryGetValue(entity.TypeId, out var group))
+            {
+                group.Remove(id);
+                if (group.Count == 0)
+                    _byType.Remove(entity.TypeId);
+            }
+
+            EntityRemoved?.Invoke(id);
             return true;
         }
 
-        /// <summary>修改树实体，触发 TreeModified 事件。</summary>
-        public void ModifyTree(int id, Action<TreeData> modifier)
+        /// <summary>修改实体并触发 EntityModified（仅当 ID 存在时）。</summary>
+        public void Modify(int id, Action<IWorldEntity> modifier)
         {
-            if (_trees.TryGetValue(id, out var data))
+            if (_entities.TryGetValue(id, out var entity))
             {
-                modifier?.Invoke(data);
-                TreeModified?.Invoke(id);
+                modifier?.Invoke(entity);
+                EntityModified?.Invoke(id);
             }
         }
 
-        /// <summary>遍历所有树（只读）。</summary>
-        public IEnumerable<KeyValuePair<int, TreeData>> AllTrees => _trees;
-
-        /// <summary>树的总数。</summary>
-        public int TreeCount => _trees.Count;
-
-        // ================================================================
-        // Building CRUD
-        // ================================================================
-
-        /// <summary>创建建筑实体，分配 ID 并触发 BuildingAdded 事件。</summary>
-        public int CreateBuilding(BuildingData data)
+        /// <summary>按具体类型修改实体，避免调用方自己做 as 转换。</summary>
+        public void Modify<T>(int id, Action<T> modifier) where T : class, IWorldEntity
         {
-            int id = _idGenerator.Next();
-            data.Id = id;
-            _buildings[id] = data;
-            BuildingAdded?.Invoke(id);
-            return id;
-        }
-
-        /// <summary>根据 ID 获取建筑实体。不存在返回 null。</summary>
-        public BuildingData GetBuilding(int id)
-        {
-            return _buildings.TryGetValue(id, out var data) ? data : null;
-        }
-
-        /// <summary>删除建筑实体，触发 BuildingRemoved 事件。</summary>
-        public bool RemoveBuilding(int id)
-        {
-            if (!_buildings.Remove(id))
-                return false;
-            BuildingRemoved?.Invoke(id);
-            return true;
-        }
-
-        /// <summary>修改建筑实体，触发 BuildingModified 事件。</summary>
-        public void ModifyBuilding(int id, Action<BuildingData> modifier)
-        {
-            if (_buildings.TryGetValue(id, out var data))
+            if (Get(id) is T typed)
             {
-                modifier?.Invoke(data);
-                BuildingModified?.Invoke(id);
+                modifier?.Invoke(typed);
+                EntityModified?.Invoke(id);
             }
         }
 
-        /// <summary>遍历所有建筑（只读）。</summary>
-        public IEnumerable<KeyValuePair<int, BuildingData>> AllBuildings => _buildings;
-
-        /// <summary>建筑总数。</summary>
-        public int BuildingCount => _buildings.Count;
-
         // ================================================================
-        // Road CRUD
+        // 遍历与统计
         // ================================================================
 
-        /// <summary>创建道路实体，分配 ID 并触发 RoadAdded 事件。</summary>
-        public int CreateRoad(RoadData data)
+        /// <summary>遍历全部实体（只读，值集合视图）。</summary>
+        public IEnumerable<IWorldEntity> AllEntities => _entities.Values;
+
+        /// <summary>遍历指定 TypeId 的全部实体；该类型无实体时返回空集合。</summary>
+        public IEnumerable<IWorldEntity> GetAllOfType(int typeId)
         {
-            int id = _idGenerator.Next();
-            data.Id = id;
-            _roads[id] = data;
-            RoadAdded?.Invoke(id);
-            return id;
+            if (_byType.TryGetValue(typeId, out var group))
+                return group.Values;
+
+            return Array.Empty<IWorldEntity>();
         }
 
-        /// <summary>根据 ID 获取道路实体。不存在返回 null。</summary>
-        public RoadData GetRoad(int id)
+        /// <summary>遍历指定 CLR 类型的全部实体（类型安全便利方法）。</summary>
+        public IEnumerable<T> GetAll<T>() where T : class, IWorldEntity
         {
-            return _roads.TryGetValue(id, out var data) ? data : null;
-        }
-
-        /// <summary>删除道路实体，触发 RoadRemoved 事件。</summary>
-        public bool RemoveRoad(int id)
-        {
-            if (!_roads.Remove(id))
-                return false;
-            RoadRemoved?.Invoke(id);
-            return true;
-        }
-
-        /// <summary>遍历所有道路（只读）。</summary>
-        public IEnumerable<KeyValuePair<int, RoadData>> AllRoads => _roads;
-
-        /// <summary>道路总数。</summary>
-        public int RoadCount => _roads.Count;
-
-        // ================================================================
-        // Worker CRUD
-        // ================================================================
-
-        /// <summary>创建工人实体，分配 ID 并触发 WorkerAdded 事件。</summary>
-        public int CreateWorker(WorkerData data)
-        {
-            int id = _idGenerator.Next();
-            data.Id = id;
-            _workers[id] = data;
-            WorkerAdded?.Invoke(id);
-            return id;
-        }
-
-        /// <summary>根据 ID 获取工人实体。不存在返回 null。</summary>
-        public WorkerData GetWorker(int id)
-        {
-            return _workers.TryGetValue(id, out var data) ? data : null;
-        }
-
-        /// <summary>删除工人实体，触发 WorkerRemoved 事件。</summary>
-        public bool RemoveWorker(int id)
-        {
-            if (!_workers.Remove(id))
-                return false;
-            WorkerRemoved?.Invoke(id);
-            return true;
-        }
-
-        /// <summary>修改工人实体，触发 WorkerModified 事件。</summary>
-        public void ModifyWorker(int id, Action<WorkerData> modifier)
-        {
-            if (_workers.TryGetValue(id, out var data))
+            foreach (var entity in _entities.Values)
             {
-                modifier?.Invoke(data);
-                WorkerModified?.Invoke(id);
+                if (entity is T typed)
+                    yield return typed;
             }
         }
 
-        /// <summary>遍历所有工人（只读）。</summary>
-        public IEnumerable<KeyValuePair<int, WorkerData>> AllWorkers => _workers;
+        /// <summary>全部实体总数。</summary>
+        public int Count => _entities.Count;
 
-        /// <summary>工人总数。</summary>
-        public int WorkerCount => _workers.Count;
-
-        // ================================================================
-        // 通用查询
-        // ================================================================
-
-        /// <summary>根据实体类型和 ID 获取实体（返回 IWorldEntity 接口）。</summary>
-        public IWorldEntity GetEntity(EntityType type, int id)
+        /// <summary>指定 TypeId 的实体数量。</summary>
+        public int CountOfType(int typeId)
         {
-            switch (type)
-            {
-                case EntityType.Tree:     return GetTree(id);
-                case EntityType.Building: return GetBuilding(id);
-                case EntityType.Road:     return GetRoad(id);
-                case EntityType.Worker:   return GetWorker(id);
-                default:                  return null;
-            }
+            return _byType.TryGetValue(typeId, out var group) ? group.Count : 0;
         }
 
         // ================================================================
@@ -248,17 +180,14 @@ namespace Simulation
         /// <summary>清空所有数据和事件订阅，重置 ID 计数器。</summary>
         public void Clear()
         {
-            _trees.Clear();
-            _buildings.Clear();
-            _roads.Clear();
-            _workers.Clear();
+            _entities.Clear();
+            _byType.Clear();
             _idGenerator.Reset();
 
             // 清空事件订阅，避免内存泄漏
-            TreeAdded = TreeRemoved = TreeModified = null;
-            BuildingAdded = BuildingRemoved = BuildingModified = null;
-            RoadAdded = RoadRemoved = null;
-            WorkerAdded = WorkerRemoved = WorkerModified = null;
+            EntityAdded = null;
+            EntityRemoved = null;
+            EntityModified = null;
         }
     }
 }
